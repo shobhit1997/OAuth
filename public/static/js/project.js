@@ -25,7 +25,8 @@ e.preventDefault();
     if (this.readyState == 4 && this.status == 200) {
       console.log(this.responseText);
       var json=JSON.parse(this.responseText);
-      alert("ProjectID :  "+json.projectID+"\nProjectSecret : "+json.projectSecret);
+      prompt("Copy to clipboard: Ctrl+C, Enter", "{projectID : "+json.projectID+",projectSecret : "+json.projectSecret+"}");
+      // alert("ProjectID :  "+json.projectID+"\nProjectSecret : "+json.projectSecret);
     }
     else if (this.readyState == 4 && this.status == 406) {
       alert('Retry with different name');
