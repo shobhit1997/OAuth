@@ -36,7 +36,9 @@ router.route('/login')
 	      async function (error, response, body) {
 	      	if(!error && response.statusCode==200){
 	      		let profile_id=body.student_id||body.faculty_id;
-	      		var token = jwt.sign({token:body.token,client:req.project.createdBy,profile_id},process.env.JWT_SECRET).toString();
+	      		let name=body.first_name;
+	      		let username = body.username;
+	      		var token = jwt.sign({token:body.token,client:req.project.createdBy,profile_id,username,name},process.env.JWT_SECRET).toString();
         	 	res.send({redirectURL:req.project.redirectURL+'?code='+token});
 	      	}
 	      	else if(!error && response.statusCode==406){
@@ -54,11 +56,15 @@ router.route('/userinfo')
 		let projectSecret=req.query.projectSecret;
 		let code=req.query.code;
 		var decoded;
+		console.log(req.query);
 		try{
 			decoded= jwt.verify(code,process.env.JWT_SECRET);
+			console.log(decoded);
 			let token=decoded.token;
 			let createdBy=decoded.client;
 			let profile_id=decoded.profile_id;
+			let username = decoded.username;
+			let name = decoded.name;
 			var project=await Project.findOne({projectID,projectSecret,createdBy});
 
 			if(project){
@@ -71,12 +77,16 @@ router.route('/userinfo')
 			        } },
 			      async function (error, response, body) {
 			      	if(!error && response.statusCode==200){
+					console.log(body);
+						body.name=name;
+						body.username=username;
 			      		res.send(body);
 			      	}
 			      	else if(!error && response.statusCode==406){
 			      		res.status(406).send({message:"Incorrect Credentials"});
 			      	}
 			      	else{
+			      		console.log(error);
 			      		res.status(400).send({message:"Bad Request"});
 			      	}
 			      }
