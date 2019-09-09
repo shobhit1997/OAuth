@@ -17,7 +17,7 @@ router.route('/')
                    .digest('hex');
         project.projectSecret=hash;
         var token = jwt.sign({projectID:project.projectID,projectSecret:project.projectSecret},process.env.JWT_SECRET).toString();
-        project.loginURL='http://52.91.35.65:3000/login?q='+token;
+        project.loginURL='http://oauth.shobhitagarwal.me/login?q='+token;
 		try{
 			var project=await project.save();
 			res.send(_.pick(project,['name','projectID','projectSecret','redirectURL']));
