@@ -27,6 +27,7 @@ e.preventDefault();
       var json=JSON.parse(this.responseText);
       prompt("Copy to clipboard: Ctrl+C, Enter", "{projectID : "+json.projectID+",projectSecret : "+json.projectSecret+"}");
       // alert("ProjectID :  "+json.projectID+"\nProjectSecret : "+json.projectSecret);
+      window.location.href='/myprojects';
     }
     else if (this.readyState == 4 && this.status == 406) {
       alert('Retry with different name');

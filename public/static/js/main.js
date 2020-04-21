@@ -13,6 +13,9 @@ $(document).ready(function () {
 		},1000)
 		
 	})
+  if(localStorage.getItem('x-auth')!=null){
+    window.location.href="/myprojects";
+  }
 });
 
 jQuery('#login-form').on('submit',function(e){
@@ -22,7 +25,7 @@ e.preventDefault();
     if (this.readyState == 4 && this.status == 200) {
       var x_auth = xhttp.getResponseHeader('x-auth');
       localStorage.setItem('x-auth',x_auth);
-      window.location.href='/myproject';
+      window.location.href='/myprojects';
     }
   };
   xhttp.open("POST", window.location.origin+"/api/user/login/infoconnect", true);
