@@ -1,5 +1,5 @@
 
-Infoconnect OAuth
+Infoconnect OAuthV2
 ===================================
 
 This is an OAuth provider for the information portal of
@@ -13,15 +13,16 @@ Introduction
 
 **To use the OAuth Service of Infoconnect follow the following steps:**
 
-1. Visit http://oauth.shobhitagarwal.me
+1. Visit http://oauthV2.shobhitagarwal.me
 2. Login with your infoconnect id
 3. Create a new project(Make sure that the project name is unique and redirectUrl is valid)
 4. Copy and store the project id and secret
 5. Get your login redirect url by using the following api
-	**GET**:http://oauth.shobhitagarwal.me/oauth/loginURL?projectID=[projectID]&projectSecret=[ProjectSecret]
+	**GET**:http://oauthV2.shobhitagarwal.me/oauth/loginURL?projectID=[projectID]&redirectURL=[redirectURL]
 6. Redirect your user to the login url received in previous step when clicked on 
 	***Login With Infoconnect***
 7. When the user login is successful he will be redirected to the ***Redirect URL*** you provided	while creating the project with the code.
    Eg: http://redirectURL?code=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjljNjc0YjRj.. 
 8. Get the user details by using the following api:
-	**GET**:http://oauth.shobhitagarwal.me/oauth/userinfo?projectID=[projectID]&projectSecret=[ProjectSecret]&code=[code]
+	**GET**:http://oauthV2.shobhitagarwal.me/oauth/userinfo?projectID=[projectID]&projectSecret=[ProjectSecret]&code=[code]
+9. Visit http://oauthV2.shobhitagarwal.me/myprojects to see your projects and add redirect url
