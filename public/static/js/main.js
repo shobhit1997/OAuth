@@ -22,7 +22,7 @@ e.preventDefault();
     if (this.readyState == 4 && this.status == 200) {
       var x_auth = xhttp.getResponseHeader('x-auth');
       localStorage.setItem('x-auth',x_auth);
-      window.location.href='/project';
+      window.location.href='/myproject';
     }
   };
   xhttp.open("POST", window.location.origin+"/api/user/login/infoconnect", true);
