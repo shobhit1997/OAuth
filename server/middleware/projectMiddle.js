@@ -1,13 +1,11 @@
 const Project= require('../.././app/models/project');
 const jwt = require('jsonwebtoken');
 var projectMiddle = function(req,res,next){
-	var token = req.header('token');
-	var decoded;
-
+	var projectID = req.query.projectID;
+	var redirectURL = req.query.redirectURL;
 	try{
 
-		decoded= jwt.verify(token,process.env.JWT_SECRET);
-		Project.findOne({projectID:decoded.projectID,projectSecret:decoded.projectSecret}).then(function(project){
+		Project.findOne({projectID:projectID,redirectURLs:redirectURL}).then(function(project){
 			if(project){
 				req.project=project;
 				next();
@@ -22,7 +20,6 @@ var projectMiddle = function(req,res,next){
 	}catch(e){
 		res.status(401).send({message:'Unauthorised Project'});
 	}
-	
 };
 
 module.exports=projectMiddle;

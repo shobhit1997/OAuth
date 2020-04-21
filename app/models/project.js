@@ -19,13 +19,10 @@ var ProjectSchema = new Schema({
 		required:true,
 		unique:true
 	},
-	redirectURL:{
+	redirectURLs:[{
 		type:String,
 		required:true
-	},
-	loginURL:{
-		type:String
-	},
+	}],
 	createdBy:{
 		type:Schema.ObjectId,
 		required:true

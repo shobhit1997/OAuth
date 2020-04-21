@@ -16,11 +16,11 @@ router.route('/')
                    .update(project.projectID)
                    .digest('hex');
         project.projectSecret=hash;
-        var token = jwt.sign({projectID:project.projectID,projectSecret:project.projectSecret},process.env.JWT_SECRET).toString();
-        project.loginURL='http://oauth.shobhitagarwal.me/login?q='+token;
+        // var token = jwt.sign({projectID:project.projectID,projectSecret:project.projectSecret},process.env.JWT_SECRET).toString();
+        // project.loginURL='http://oauth.shobhitagarwal.me/login?q='+token;
 		try{
 			var project=await project.save();
-			res.send(_.pick(project,['name','projectID','projectSecret','redirectURL']));
+			res.send(_.pick(project,['name','projectID','projectSecret','redirectURLs']));
 
 		}
 		catch(e){
@@ -47,4 +47,23 @@ router.route('/')
 			res.status(400).send();
 		}
 	});
+router.route('/addRedirectUrl')
+	.post(authenticate,async function(req,res){
+		var projectID=req.body.projectID;
+		var redirectURL=req.body.redirectURL;
+		try{
+			var project=await Project.findOne({projectID,createdBy:req.user._id});
+			if(project){
+				project.redirectURLs.push(redirectURL);
+				await project.save();
+				res.send(project);
+			}
+			else{
+				res.status(401).send({message:'You are not authorised to delete this resource'});	
+			}
+		}
+		catch(e){
+			res.status(400).send();
+		}
+	})
 module.exports=router;

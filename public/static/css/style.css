@@ -81,6 +81,16 @@
 	transition:all 0.4s ease-in-out;
 
 }
+.input-style-ul{
+	width: 100%;
+	border: 0px;
+	background: transparent;
+	margin-bottom: 20px;
+	padding: 10px 5px;
+	font-family: 'Roboto';
+	transition:all 0.4s ease-in-out;
+
+}
  .input-style:focus{
 	
 	border-bottom: 1px solid #e6c115;

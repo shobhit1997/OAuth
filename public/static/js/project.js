@@ -37,7 +37,7 @@ e.preventDefault();
   xhttp.setRequestHeader("x-auth", localStorage.getItem('x-auth'));
   var jsonObj={
   	name : jQuery("#projectname").val(),
-  	redirectURL : jQuery("#redirecturl").val()
+  	redirectURLs : [jQuery("#redirecturl").val()]
   };
   xhttp.send(JSON.stringify(jsonObj));
 });
